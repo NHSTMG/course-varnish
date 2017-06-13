@@ -5,8 +5,16 @@ script=$(readlink -f $0)
 script_dir=$(dirname $script)
 script_id=$(md5sum "${script}" | head -c 8)
 task_name="$(basename ${script_dir})"
-this_dir=$(dirname $0)
 me=$(cat /etc/who_am_i)
+
+# ----------------------------------------------------------------------
+# Constants
+
+BASE_DIR=/home/ubuntu/shared 
+VARNISH_SECRET_FILE=${BASE_DIR}/include/varnish-secret
+
+
+# ----------------------------------------------------------------------
 
 function report_success {
   hipchat_info "<strong>${me}</strong> successfully completed ${task_name} (${script_id})! $1"
