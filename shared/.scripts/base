@@ -1,0 +1,36 @@
+#!/bin/bash
+
+script_command=$@
+script=$(readlink -f $0)
+script_dir=$(dirname $script)
+script_id=$(md5sum "${script}" | head -c 8)
+task_name="$(basename ${script_dir})"
+this_dir=$(dirname $0)
+me=$(cat /etc/who_am_i)
+
+function report_success {
+  hipchat_info "<strong>${me}</strong> successfully completed ${task_name} (${script_id})! $1"
+}
+
+function root_or_die {
+    if [ "$(id -u)" != "0" ]; then
+        echo "This script must be run as root" 1>&2
+        exit 1
+    fi
+}
+
+function hipchat {
+  MESSAGE="$(echo $@ | tr -d '\n\r')"
+  COLOR=${HIPCHAT_COLOR:-green}
+  NOTIFY=${HIPCHAT_NOTIFY:-false}
+  
+  curl -sS \
+    -H 'Content-type: application/json' \
+    -d "{\"color\":\"$COLOR\", \"message\":\"$MESSAGE\", \"message_format\":\"html\", \"notify\":$NOTIFY}" \
+    https://nhst.hipchat.com/v2/room/3899151/notification?auth_token=jrHgnIU2JFfefu1eq7pjinJIXcKZsq3vGca13CJw
+}
+
+function hipchat_info {
+  HIPCHAT_COLOR=green
+  hipchat $@
+}
