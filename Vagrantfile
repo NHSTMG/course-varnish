@@ -10,6 +10,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provision :shell, path: "setup/bootstrap.sh"
   config.vm.synced_folder "shared", "/home/ubuntu/shared"
   config.vm.synced_folder "nginx/html", "/var/www/html"
+  config.vm.synced_folder "nginx/sites-enabled", "/etc/nginx/sites-enabled"
 
   config.vm.network "forwarded_port", guest: 80, host: 10080
   for i in 6081..6091

@@ -10,8 +10,8 @@ cat ~ubuntu/.git_logs_HEAD | grep "clone:" | head -n 1 | sed -rn 's/^\w+ \w+ ([^
 
 apt-get update
 
-echo "Installing nginx"
-ai nginx
+echo "Installing nginx with PHP"
+ai nginx php7.0 php7.0-fpm
 
 echo "Installing Varnish"
 ai varnish
