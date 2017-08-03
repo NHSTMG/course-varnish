@@ -1,0 +1,4 @@
+#! /bin/bash
+
+read -p "Enter your name (ctrl+c to cancel): "
+sudo sh -c "echo $REPLY > /etc/who_am_i"

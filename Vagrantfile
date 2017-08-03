@@ -9,6 +9,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provision "file", source: "../.git/logs/HEAD", destination: ".git_logs_HEAD"
   config.vm.provision :shell, path: "setup/bootstrap.sh"
   config.vm.synced_folder "shared", "/home/ubuntu/shared"
+  config.vm.synced_folder "setup/bin", "/home/ubuntu/bin"
   config.vm.synced_folder "nginx/html", "/var/www/html"
   config.vm.synced_folder "nginx/sites-enabled", "/etc/nginx/sites-enabled"
 
