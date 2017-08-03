@@ -1,0 +1,3 @@
+
+* "Referrer" (correct spelling) should be "Referer"
+
