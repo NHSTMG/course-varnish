@@ -17,7 +17,12 @@ VARNISH_SECRET_FILE=${BASE_DIR}/include/varnish-secret
 # ----------------------------------------------------------------------
 
 function report_success {
+  echo "Congratulations! It seems to be working. Reporting to Hipchat!"
   hipchat_info "<strong>${me}</strong> successfully completed ${task_name} (${script_id})! $1"
+}
+
+function report_failure {
+  echo "Sorry, but it seems like something is not quite right yet."
 }
 
 function root_or_die {
@@ -42,3 +47,6 @@ function hipchat_info {
   HIPCHAT_COLOR=green
   hipchat $@
 }
+
+# HTTP functions
+#function curl_get { }
