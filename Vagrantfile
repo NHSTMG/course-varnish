@@ -13,9 +13,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.synced_folder "nginx/sites-enabled", "/etc/nginx/sites-enabled"
 
   config.vm.network "forwarded_port", guest: 80, host: 10080
-  for i in 6081..6091
-    config.vm.network "forwarded_port", guest: i, host: i
-  end
+  config.vm.network "forwarded_port", guest: 6081, host: 6081
+  #for i in 6081..6091
+  #  config.vm.network "forwarded_port", guest: i, host: i
+  #end
   
   # Prevent TTY Errors
   config.ssh.shell = "bash -c 'BASH_ENV=/etc/profile exec bash'"

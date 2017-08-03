@@ -14,7 +14,7 @@ echo "Installing nginx with PHP"
 ai nginx php7.0 php7.0-fpm
 
 echo "Installing Varnish"
-ai varnish
+ai varnish varnish-modules
 
 # Varnish will be started manually as a different user, so just disable the default daemon.
 systemctl stop varnish varnishncsa &> /dev/null
