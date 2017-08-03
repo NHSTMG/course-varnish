@@ -25,6 +25,11 @@ function report_failure {
   echo "Sorry, but it seems like something is not quite right yet."
 }
 
+function fail {
+  echo -e "Test failure: $@"
+  exit 1
+}
+
 function root_or_die {
     if [ "$(id -u)" != "0" ]; then
         echo "This script must be run as root" 1>&2
@@ -49,4 +54,11 @@ function hipchat_info {
 }
 
 # HTTP functions
-#function curl_get { }
+function curl_get {
+  curl -sS -X GET "$@"
+}
+
+function curl_get_headers { 
+  curl -sS -X GET -I "$@"
+}
+
