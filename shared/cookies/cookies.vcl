@@ -5,7 +5,6 @@
 # new 4.0 format.
 vcl 4.0;
 
-import cookie;
 
 # Default backend definition. Set this to point to your content server.
 backend default {
