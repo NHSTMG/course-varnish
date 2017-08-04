@@ -22,9 +22,22 @@
         border: 0px none transparent;
         overflow: hidden;
       }
+
+      h1 {
+        position: absolute;
+        right: 10px;
+        color: #fff;
+        text-shadow:
+          -1px -1px 0 #000,
+          1px -1px 0 #000,
+          -1px 1px 0 #000,
+          1px 1px 0 #000;  
+      }
     </style>
   </head>
   <body id="content">
+
+    <h1>Color</h1>
 
     <iframe src="tile.php?i=1"></iframe>
     <iframe src="tile.php?i=2"></iframe>

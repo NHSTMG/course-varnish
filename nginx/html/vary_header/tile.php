@@ -4,7 +4,7 @@
 
   // Add Vary header here
 
-  header("Vary: Referer");
+  //header("Vary: Referer");
 ?>
 
 
