@@ -36,5 +36,5 @@ echo 'echo' >> /etc/update-motd.d/99-custom-message
 chmod a+rx /etc/update-motd.d/99-custom-message
 
 echo
-echo "Done! Read the information at http://stash.nhst.kunder.linpro.no/projects/UTV/repos/khp/browse/course_varnish if you are unsure of what to do."
+echo "Done! Read the information at http://stash.nhst.kunder.linpro.no/projects/UTV/repos/khp/browse/course-varnish if you are unsure of what to do."
 
