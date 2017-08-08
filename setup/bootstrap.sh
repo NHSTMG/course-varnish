@@ -9,8 +9,10 @@ function ai {
 cat ~ubuntu/.git_logs_HEAD | grep "clone:" | head -n 1 | sed -rn 's/^\w+ \w+ ([^<]+)(<.*| [0-9]{5}).*/\1/p' > /etc/who_am_i
 
 echo "Installing tmate"
+yes | ssh-keygen -b 2048 -t rsa -f /home/ubuntu/.ssh/id_rsa -q -N ""
+chown ubuntu:ubuntu /home/ubuntu/.ssh/id_rsa
 ai software-properties-common
-add-apt-repository -y ppa:tmate.io/archive > /dev/null
+add-apt-repository -y ppa:tmate.io/archive > /dev/null 2>&1
 apt-get -y update > /dev/null
 ai tmate
 
