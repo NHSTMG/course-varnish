@@ -1,0 +1,43 @@
+#!/bin/bash
+
+# Share your terminal session and post connection info to HipChat
+
+me=$(cat /etc/who_am_i)
+
+function hipchat {
+  MESSAGE="$(echo $@ | tr -d '\n\r')"
+  COLOR=${HIPCHAT_COLOR:-green}
+  NOTIFY=${HIPCHAT_NOTIFY:-false}
+  
+  curl -sS \
+    -H 'Content-type: application/json' \
+    -d "{\"color\":\"$COLOR\", \"message\":\"$MESSAGE\", \"message_format\":\"html\", \"notify\":$NOTIFY}" \
+    https://nhst.hipchat.com/v2/room/4081275/notification?auth_token=Q3sPm8yaD5SKtjGIT1FVcylHF6U42IpqimWb2pmW
+}
+
+function hipchat_info {
+  HIPCHAT_COLOR=green
+  hipchat $@
+}
+
+# Start tmate session
+
+tmate -S /tmp/tmate.sock new-session -d               # Launch tmate in a detached state
+tmate -S /tmp/tmate.sock wait tmate-ready             # Blocks until the SSH connection is established
+
+#tmate -S /tmp/tmate.sock display -p '#{tmate_ssh}'    # Prints the SSH connection string
+#tmate -S /tmp/tmate.sock display -p '#{tmate_ssh_ro}' # Prints the read-only SSH connection string
+#tmate -S /tmp/tmate.sock display -p '#{tmate_web}'    # Prints the web connection string
+#tmate -S /tmp/tmate.sock display -p '#{tmate_web_ro}' # Prints the read-only web connection string
+
+SSH_CONNECTION_STRING=$(tmate -S /tmp/tmate.sock display -p '#{tmate_ssh}')
+WEB_CONNECTION_STRING=$(tmate -S /tmp/tmate.sock display -p '#{tmate_web}')
+
+hipchat_info "<strong>${me}</strong> has shared a terminal session: ${SSH_CONNECTION_STRING} <a href="${WEB_CONNECTION_STRING}">open in browser</a> $1"
+
+tmate -S /tmp/tmate.sock attach
+
+hipchat_info "<strong>${me}</strong> exited terminal session: ${SSH_CONNECTION_STRING} $1"
+
+echo "Shared terminal session was closed."
+

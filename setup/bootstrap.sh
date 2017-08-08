@@ -27,11 +27,11 @@ systemctl stop varnish varnishncsa &> /dev/null
 systemctl disable varnish varnishncsa &> /dev/null
 chown -R ubuntu:ubuntu /var/lib/varnish/
 
-
-
 rm -f /etc/update-motd.d/*
 echo '#!/bin/sh' > /etc/update-motd.d/99-custom-message
 echo 'echo "Welcome, $(cat /etc/who_am_i)! (Wrong name? Type change_name to fix it)."' >> /etc/update-motd.d/99-custom-message
+echo 'echo' >> /etc/update-motd.d/99-custom-message
+echo 'echo "To share your terminal session, type: share"' >> /etc/update-motd.d/99-custom-message
 echo 'echo' >> /etc/update-motd.d/99-custom-message
 chmod a+rx /etc/update-motd.d/99-custom-message
 
