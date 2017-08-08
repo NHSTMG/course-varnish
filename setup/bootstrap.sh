@@ -10,8 +10,8 @@ cat ~ubuntu/.git_logs_HEAD | grep "clone:" | head -n 1 | sed -rn 's/^\w+ \w+ ([^
 
 echo "Installing tmate"
 ai software-properties-common
-add-apt-repository -y ppa:tmate.io/archive
-apt-get -y update
+add-apt-repository -y ppa:tmate.io/archive > /dev/null
+apt-get -y update > /dev/null
 ai tmate
 
 echo "Installing nginx with PHP"
