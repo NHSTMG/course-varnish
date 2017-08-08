@@ -8,7 +8,11 @@ function ai {
 
 cat ~ubuntu/.git_logs_HEAD | grep "clone:" | head -n 1 | sed -rn 's/^\w+ \w+ ([^<]+)(<.*| [0-9]{5}).*/\1/p' > /etc/who_am_i
 
-apt-get update
+echo "Installing tmate"
+ai software-properties-common
+add-apt-repository -y ppa:tmate.io/archive
+apt-get -y update
+ai tmate
 
 echo "Installing nginx with PHP"
 ai nginx php7.0 php7.0-fpm
@@ -20,6 +24,8 @@ ai varnish varnish-modules
 systemctl stop varnish varnishncsa &> /dev/null
 systemctl disable varnish varnishncsa &> /dev/null
 chown -R ubuntu:ubuntu /var/lib/varnish/
+
+
 
 rm -f /etc/update-motd.d/*
 echo '#!/bin/sh' > /etc/update-motd.d/99-custom-message
