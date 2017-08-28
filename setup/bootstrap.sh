@@ -6,7 +6,9 @@ function ai {
   apt-get install -qq -y $@ > /dev/null
 }
 
-cat ~ubuntu/.git_logs_HEAD | grep "clone:" | head -n 1 | sed -rn 's/^\w+ \w+ ([^<]+)(<.*| [0-9]{5}).*/\1/p' > /etc/who_am_i
+cat ~ubuntu/.git_logs_HEAD | grep "clone:" | head -n 1 | sed -rn 's/^\w+ \w+ (.+) <.*/\1/p' > /etc/who_am_i
+
+update-locale LANG="en_US.UTF-8" LANGUAGE="en_US:en" LC_ALL="en_US.UTF-8" &> /dev/null
 
 echo "Installing tmate"
 yes | ssh-keygen -b 2048 -t rsa -f /home/ubuntu/.ssh/id_rsa -q -N ""
@@ -18,6 +20,7 @@ ai tmate
 
 echo "Installing nginx with PHP"
 ai nginx php7.0 php7.0-fpm
+sudo systemctl enable nginx &> /dev/null
 
 echo "Installing Varnish"
 ai varnish varnish-modules
