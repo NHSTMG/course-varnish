@@ -1,0 +1,6 @@
+/.*
+/*.log
+*~
+.vagrant
+/course-*/*.log
+.swp
