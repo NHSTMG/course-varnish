@@ -8,6 +8,7 @@ function ai {
 
 cat ~ubuntu/.git_logs_HEAD | grep "clone:" | head -n 1 | sed -rn 's/^\w+ \w+ (.+) <.*/\1/p' > /etc/who_am_i
 
+yes | locale-gen en_US.UTF-8
 update-locale LANG="en_US.UTF-8" LANGUAGE="en_US:en" LC_ALL="en_US.UTF-8" &> /dev/null
 
 echo "Installing tmate"
