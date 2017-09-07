@@ -11,6 +11,13 @@
   }
 ?>
 
-Hi! Put any HTML or web resources here, and they will be served by nginx at http://localhost:10080/ on your host machine.
-
-<?php print "PHP is enabled. By the way, all cookies on this domain have also been deleted."; ?>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  </head>
+  <body>
+    <?php print "<h1>It's working!</h1><small>By the way, all cookies on this domain have also been deleted.</small>"; ?>
+  </body>
+</html>
