@@ -6,6 +6,7 @@ VAGRANTFILE_API_VERSION = "2"
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.box = "ubuntu/yakkety64"
+  config.vm.box_url = "http://cloud-images-archive.ubuntu.com/releases/yakkety/release-20170619.1/ubuntu-16.10-server-cloudimg-amd64-vagrant.box"
   config.vm.provision "file", source: ".git/logs/HEAD", destination: ".git_logs_HEAD"
   config.vm.provision :shell, path: "setup/bootstrap.sh"
   config.vm.provision :shell, path: "setup/always_run_on_vagrant_up.sh", run: "always"
