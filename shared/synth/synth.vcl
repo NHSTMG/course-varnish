@@ -27,8 +27,15 @@ sub vcl_recv {
     unset req.http.Cookie;
 
     if(req.url == "/synth/error/") {
-        return(synth(418, "This is an error"));
+
+       // Return an error with status 418 here
+
     } else if(req.url == "/synth/content/") {
+
+        // A usual way to use vcl_synth is to call synth(xx) where
+        // xx is some custom status code. Then we can test for
+        // the status code in the vcl_synth method itself.
+
         return(synth(720));
     } else if(req.url == "/synth/redirect/") {
         return(synth(721));
@@ -52,21 +59,17 @@ sub vcl_deliver {
 
 import std;
 
-sub vcl_synth {
+sub vcl_synth { 
 
   if(resp.status == 720) {
 
-    // Respond with the file: /home/ubuntu/shared/synth/content.html
+    // Respond with status 404 and the file: /home/ubuntu/shared/synth/content.html
 
-    set resp.status = 404;
-    synthetic(std.fileread("/home/ubuntu/shared/synth/content.html"));
-    return (deliver);
-    
   } else if(resp.status == 721) {
 
-    set resp.http.Location = "/synth/content/";
-    set resp.status = 302;
-    return (deliver);
+    // Respond with a 302 redirect to "/synth/content"
 
   }
+
+  return (deliver);
 }
