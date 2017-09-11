@@ -1,0 +1,19 @@
+#!/bin/bash
+set -e
+CONFIG_FILE="$1"
+
+if [ -z "${CONFIG_FILE}" ]
+then
+  echo "Usage: reload-varnish filename.vcl"
+  exit 1
+fi
+
+# Generate a unique timestamp ID for this version of the VCL
+TIME=$(date +%s)
+
+# Load the file into memory
+varnishadm -S ../include/varnish-secret vcl.load varnish_$TIME `realpath $CONFIG_FILE`
+
+# Active this Varnish config
+varnishadm -S ../include/varnish-secret vcl.use varnish_$TIME
+
