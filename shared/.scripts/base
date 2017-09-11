@@ -62,3 +62,75 @@ function curl_get_headers {
   curl -sS -X GET -I "$@"
 }
 
+function require_status_code () {
+  URL="$1"
+  EXPECTED_STATUS_CODE="$2"
+
+  STATUS_CODE=$(curl -o /dev/null -w "%{http_code}\n" -s "${URL}")
+
+  if [ "$STATUS_CODE" != "$EXPECTED_STATUS_CODE" ]; then
+    echo "Expected status code ${EXPECTED_STATUS_CODE}, but got ${STATUS_CODE} for URL ${URL}"
+    exit 1
+  else
+    echo "Found expected status code ${EXPECTED_STATUS_CODE} for URL ${URL}"
+  fi
+}
+
+function require_header_present() {
+  URL="$1"
+  HEADER_NAME="$2"
+
+  HEADERS=$(curl -X GET -I -q -s "${URL}" | tr -d '\r')
+
+  if echo "$HEADERS" | grep -q "$HEADER_NAME"
+  then
+    echo "Found expected header \"${HEADER_NAME}\" for URL ${URL}"
+  else
+    echo "Expected header \"${HEADER_NAME}\" was not found for URL ${URL}"
+    exit 1
+  fi
+}
+
+function require_header_value () {
+  URL="$1"
+  HEADER_NAME="$2"
+  HEADER_VALUE="$3"
+
+  HEADERS=$(curl -X GET -I -q -s "${URL}" | tr -d '\r')
+
+  if echo "$HEADERS" | grep -q "$HEADER_NAME"
+  then
+    #echo "Found header: \"${HEADER_NAME}\" for URL ${URL}"
+
+    HEADER_LINE=$(echo "$HEADERS" | grep "$HEADER_NAME")
+    if echo "$HEADER_LINE" | grep -q "$HEADER_VALUE"
+    then
+      echo "Found expected header with expected value \"${HEADER_LINE}\" for URL ${URL}"
+    else
+      echo "Found expected header \"${HEADER_NAME}\" for URL ${URL}, but not expected value \"${HEADER_VALUE}\"."
+      echo "Header line was: "
+      echo ${HEADER_LINE}
+      exit 1
+    fi
+
+  else
+    echo "Expected header \"${HEADER_NAME}\" was not found for URL ${URL}"
+    exit 1
+  fi
+}
+
+function require_body_content () {
+  URL="$1"
+  EXPECTED_CONTENT="$2"
+
+  CONTENT=$(curl -s "${URL}")
+
+  if echo "$CONTENT" | grep -q "${EXPECTED_CONTENT}"
+  then
+      echo "Found expected string \"${EXPECTED_CONTENT}\" in response body for URL ${URL}."
+  else
+      echo "Expected string \"${EXPECTED_CONTENT}\" in response body for URL ${URL}, but did not find it."
+      exit 1
+  fi
+
+}
