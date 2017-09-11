@@ -107,7 +107,7 @@ function require_header_value () {
     then
       echo "Found expected header with expected value \"${HEADER_LINE}\" for URL ${URL}"
     else
-      echo "Found expected header \"${HEADER_NAME}\" for URL ${URL}, but not expected value \"${HEADER_VALUE}\"."
+      echo "Found expected header \"${HEADER_NAME}\" for URL ${URL}, but not expected value \"${HEADER_VALUE}\""
       echo "Header line was: "
       echo ${HEADER_LINE}
       exit 1
@@ -127,9 +127,9 @@ function require_body_content () {
 
   if echo "$CONTENT" | grep -q "${EXPECTED_CONTENT}"
   then
-      echo "Found expected string \"${EXPECTED_CONTENT}\" in response body for URL ${URL}."
+      echo "Found expected string \"${EXPECTED_CONTENT}\" in response body for URL ${URL}"
   else
-      echo "Expected string \"${EXPECTED_CONTENT}\" in response body for URL ${URL}, but did not find it."
+      echo "Expected string \"${EXPECTED_CONTENT}\" in response body for URL ${URL}, but did not find it"
       exit 1
   fi
 
