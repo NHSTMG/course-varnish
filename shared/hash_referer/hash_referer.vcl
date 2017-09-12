@@ -40,3 +40,4 @@ sub vcl_deliver {
     #
     # You can do accounting or modifying the final object here.
 }
+
