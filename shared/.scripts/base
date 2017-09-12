@@ -82,7 +82,7 @@ function require_header_present() {
 
   HEADERS=$(curl -X GET -I -q -s "${URL}" | tr -d '\r')
 
-  if echo "$HEADERS" | grep -q "$HEADER_NAME"
+  if echo "$HEADERS" | grep -q -i "$HEADER_NAME"
   then
     echo "Found expected header \"${HEADER_NAME}\" for URL ${URL}"
   else
@@ -98,7 +98,7 @@ function require_header_value () {
 
   HEADERS=$(curl -X GET -I -q -s "${URL}" | tr -d '\r')
 
-  if echo "$HEADERS" | grep -q "$HEADER_NAME"
+  if echo "$HEADERS" | grep -q -i "$HEADER_NAME"
   then
     #echo "Found header: \"${HEADER_NAME}\" for URL ${URL}"
 
