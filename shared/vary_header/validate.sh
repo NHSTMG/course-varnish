@@ -2,15 +2,17 @@
 
 source ~/shared/.scripts/base
 
-if ! curl -H "Referer: color" -s http://localhost:6081/vary_header/tile.php?i=1 | grep -q "referrer=color"
+ping_server "http://localhost:6081" "Varnish server on localhost"
+
+if ! curl -H "Referer: /vary_header/color.php" -s "http://localhost:6081/vary_header/tile.php?i=1" | grep -q "referrer=color"
 then
-  echo "Didn't get a color tile for color referrer."
+  echo "Didn't get a color tile for color.php referrer."
   fail_exercise
 fi
 
-if ! curl -H "Referer: blackwhite" -s http://localhost:6081/vary_header/tile.php?i=1 | grep -q "referrer=blackwhite"
+if ! curl -H "Referer: /vary_header/blackwhite.php" -s "http://localhost:6081/vary_header/tile.php?i=1" | grep -q "referrer=blackwhite"
 then
-  echo "Didn't get a black&white tile for blackwhite referrer."
+  echo "Didn't get a black&white tile for blackwhite.php referrer."
   fail_exercise
 fi
 
