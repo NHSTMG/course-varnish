@@ -141,3 +141,15 @@ function fail_exercise () {
   exit 1
 }
 
+function ping_server () {
+  URL="$1"
+  SERVER_NAME="$2"
+
+  STATUS_CODE=$(curl -o /dev/null -w "%{http_code}\n" -s "${URL}")
+
+  if [ "$STATUS_CODE" != "200" ]; then
+    echo "Seems like ${SERVER_NAME} (${URL}) isn't running, exiting."
+    exit 1
+  fi
+
+}
