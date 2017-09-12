@@ -34,7 +34,7 @@ sub vcl_deliver {
 
     // Add log line with "UA: " + the User-Agent header of the request
 
-    std.log("UA: " + req.http.User-Agent);
+
 
     // Add hit counter header to the response
     // for hits, add: "X-Cache: HIT #" + the number of hits so far
@@ -42,14 +42,6 @@ sub vcl_deliver {
 
     // Also log a line with "HIT#: " + the number of hits
 
-    if (obj.hits > 0) {
-      set resp.http.X-Cache = "HIT #" + obj.hits;
-
-      std.log("HIT#: " + obj.hits);
-
-    } else {
-      set resp.http.X-Cache = "MISS";
-    }
 
 }
 
