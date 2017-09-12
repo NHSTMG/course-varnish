@@ -2,7 +2,6 @@
   header("X-Testing: Test header");
 
   // Add cache control header here
-  header("Cache-Control: max-age=0, s-maxage=86400, public=true");
 
 ?>
 
