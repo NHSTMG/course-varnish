@@ -2,5 +2,5 @@
 /*.log
 *~
 .vagrant
-/course-*/*.log
-.swp
+*.log
+*.swp
