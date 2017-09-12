@@ -16,5 +16,7 @@ then
   fail_exercise
 fi
 
+require_header_present "http://localhost:6081/vary_header/tile.php" "Vary"
+
 report_success
 
