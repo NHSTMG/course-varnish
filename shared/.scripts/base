@@ -134,3 +134,10 @@ function require_body_content () {
   fi
 
 }
+
+function fail_exercise () {
+  echo ""
+  echo "Remember to restart Varnish if you've changed the VCL or have got a previous version of the backend response cached."
+  exit 1
+}
+

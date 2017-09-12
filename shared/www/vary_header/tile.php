@@ -2,9 +2,6 @@
   header("X-Testing: Test header");
   header("Cache-Control: max-age=0, s-maxage=86400, public=true");
 
-  // Add Vary header here
-
-  //header("Vary: Referer");
 ?>
 
 
@@ -13,6 +10,18 @@
   <head>
     <meta charset="utf-8">
     <title>Test</title>
+
+    <?php
+      $referer = $_SERVER['HTTP_REFERER'];
+
+      if (strpos($referer, 'blackwhite') !== false) {
+        echo("<!-- referrer=blackwhite -->");
+      } else if (strpos($referer, 'color') !== false) {
+        echo("<!-- referrer=color -->");
+      } else {
+        echo("<!-- referrer=unknown -->");
+      }
+    ?>
 
     <style type="text/css">
       html,body {
@@ -24,8 +33,6 @@
         font-size: 40px;
         background-color: <?php
           $i = $_GET["i"];
-
-          $referer = $_SERVER['HTTP_REFERER'];
 
           if (strpos($referer, 'blackwhite') !== false) {
               $r = min(255, round(($i/26)*255));
@@ -58,7 +65,11 @@
     <span> 
       <?php
         sleep(rand (0, 2));
-        echo $i;
+        if($i) {
+          echo $i;
+        } else {
+          echo "?";
+        }
       ?>
     </span>
 
