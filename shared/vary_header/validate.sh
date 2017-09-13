@@ -16,7 +16,7 @@ then
   fail_exercise
 fi
 
-require_header_present "http://localhost:6081/vary_header/tile.php" "Vary"
+require_header_value "http://localhost:6081/vary_header/tile.php" "Vary" "Referer"
 
 report_success
 
