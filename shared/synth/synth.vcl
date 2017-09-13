@@ -26,20 +26,13 @@ sub vcl_recv {
 
     unset req.http.Cookie;
 
-    if(req.url == "/synth/error/") {
+    # A common way to use vcl synth is to call synth(xxx) where
+    # xxx is some custome status code (e.g. 720). Then we can
+    # test for the status code in the response object in the
+    # vcl_synth method itself.
 
-       // Return an error with status 418 here
-
-    } else if(req.url == "/synth/content/") {
-
-        // A usual way to use vcl_synth is to call synth(xx) where
-        // xx is some custom status code. Then we can test for
-        // the status code in the vcl_synth method itself.
-
-        return(synth(720));
-    } else if(req.url == "/synth/redirect/") {
-        return(synth(721));
-    }
+    # This allows us to reuse the same synthetic responses in
+    # different settings.
 }
 
 sub vcl_backend_response {
@@ -57,19 +50,9 @@ sub vcl_deliver {
 }
 
 
-import std;
-
 sub vcl_synth { 
 
-  if(resp.status == 720) {
+    # Check the passed status code with resp.status here
 
-    // Respond with status 404 and the file: /home/ubuntu/shared/synth/content.html
-
-  } else if(resp.status == 721) {
-
-    // Respond with a 302 redirect to "/synth/content"
-
-  }
-
-  return (deliver);
 }
+
